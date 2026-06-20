@@ -1,8 +1,16 @@
 from django.contrib import admin
 from .models import Order , RefundRequest , Product
+
 # Register your models here.
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['name' , 'price' , 'category' , 'in_stock']
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['user' , 'product' , 'amount' , 'status' , 'carrier' , 'tracking_number']
 
-admin.site.register(Product)
-admin.site.register(Order)
-admin.site.register(RefundRequest)
+class RefundRequestAdmin(admin.ModelAdmin):
+    list_display = ['order' , 'user'  , 'reason' , 'status']
+
+admin.site.register(Product , ProductAdmin)
+admin.site.register(Order , OrderAdmin)
+admin.site.register(RefundRequest , RefundRequestAdmin)
