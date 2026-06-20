@@ -39,7 +39,7 @@ class RefundRequest(models.Model):
     STATUS_CHOICES = [
         ('pending' , "Pending"),
         ('approved' , 'Approved'),
-        ('delivered' , 'Delivered'),
+        ('denied' , 'Denied'),
     ]
 
 
