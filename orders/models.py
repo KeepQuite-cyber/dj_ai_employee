@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
+# In fields we can pass two types of keywords:
+# 1. Positional arguments (required argument)
+# 2. keyword arguments (optional)
+
+
 class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -41,7 +46,6 @@ class RefundRequest(models.Model):
         ('approved' , 'Approved'),
         ('denied' , 'Denied'),
     ]
-
 
     order = models.ForeignKey(Order , on_delete=models.CASCADE , related_name='refund_request')
     user = models.ForeignKey(User , on_delete=models.CASCADE , related_name='refund_request')

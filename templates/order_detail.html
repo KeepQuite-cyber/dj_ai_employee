@@ -200,10 +200,16 @@
     }
 
 
+
     #chat-box{
       height : 500px;
       display : flex;
       flex-direction : column;
+      opacity : 0;
+    }
+
+    #chat-box.visible{
+      opacity : 1;
     }
 
     .chat-messages{
@@ -307,17 +313,18 @@
 
     <div class="col-md-4">
       <!-- help card - visible by default -->
-      <div class="help-card">
+      <div class="help-card" id="help-card">
         <div style="font-size:32px;">💬</div>
         <h6>Need help with this order?</h6>
         <p>Our AI support agent can help you with delivery issues, refunds, or any other concerns.</p>
-        <a href="#" class="btn-help">Get Help</a>
+        <button onclick="showChat()" class="btn-help">Get Help</button>
       </div>
 
       <!-- chat box - hidden by default -->
        <div id="chat-box" class="card">
         <!-- header-->
-        <div class="card-header d-flex align-item-center">
+        <div class="card-header d-flex align-items-center gap-2">
+          <div style="width :8px; height: 8px; border-radius:50%; background-color: green;"></div>
           <span class="fw-semibold" style="font-size : 13px">Support Agent</span>
         </div>
 
@@ -341,6 +348,14 @@
 </div>
 
 <script>
+
+  function showChat(){
+    document.getElementById("help-card").style.display = "none";
+    const chatBox = document.getElementById('chat-box');
+
+    chatBox.classList.add("visible");
+  }
+
 
     function appendMessage(text , type){
       const messages = document.getElementById('chat-messages')
