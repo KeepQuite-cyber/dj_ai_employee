@@ -1,4 +1,4 @@
-from orders.models import Order
+from orders.models import Order , RefundRequest
 from datetime import timezone
 
 
@@ -19,3 +19,20 @@ def get_order_details(order_id):
     except Order.DoesNotExist:
         return {"error" : f"Order #{order_id} not found"}
     
+def get_refund_history(user_id):
+    refunds = RefundRequest.objects.filter(user_id=user_id).order_by("-created_at") # - -> it will give the result in dictionary
+    history = []
+    for refund in refunds:
+        history.append({
+            "order_id" : refund.order.id,
+            "product" : refund.order.product_name,
+            "reason" : refund.reason,
+            "status" : refund.status,
+            "request_on" : refund.created_at.strftime("%d %b %Y"),
+        })
+            
+    return {
+        "total_refund_requested" : len(history),
+        "history" : history,
+    }
+        
