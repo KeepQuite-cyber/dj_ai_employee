@@ -1,5 +1,7 @@
 from orders.models import Order , RefundRequest
 from datetime import timezone
+from .tracking_data import DELIVERY_DATA
+
 
 
 def get_order_details(order_id):
@@ -36,3 +38,17 @@ def get_refund_history(user_id):
         "history" : history,
     }
         
+
+def check_delivery_status(tracking_number , carrier):
+    default_response = {
+        "status" : "Unknown",
+        "last_location" : "Tracking info unavailable",
+        "last_update" : "N/A",
+        "estimated_delivery" : "Contact carrier directly",
+        "delay_reason" : None
+    } 
+
+    result = DELIVERY_DATA.get(tracking_number , default_response)
+    result['tracking_number'] = tracking_number
+    result["carrier"] = carrier
+    return result
